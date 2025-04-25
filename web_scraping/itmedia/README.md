@@ -69,16 +69,18 @@ python3 main.py
 
 ```mermaid
 graph TD
-    main_py["main.py 実行"] --> get_articles["articles = scrape_itmedia_news()"]
-    get_articles -->|scrape_itmedia_news() 呼び出し| scraper["scraper.py 実行"]
-    scraper --> collect["記事一覧を取得しリストに格納"]
-    get_articles --> get_existing["get_existing_titles_and_urls()"]
-    get_existing --> read_csv["既存CSVからタイトル・URLのセットを作成"]
-    get_articles --> dedup["remove_duplicates()"]
-    dedup --> filter["重複しない記事のみを抽出"]
-    filter --> save_csv["pandas.DataFrame に変換してCSV保存"]
-    save_csv --> spreadsheet["write_to_spreadsheet()"]
-    spreadsheet --> write_gsheet["Google Spreadsheet に書き込み"]
+    main_py["main.py 実行"]
+    scraper["scraper.py: 記事をスクレイピング"]
+    get_existing["既存CSVから記事情報を取得"]
+    dedup["重複除外"]
+    save_csv["CSVファイルに保存"]
+    spreadsheet["spreadsheet.py: Googleスプレッドシートに書き込み"]
+
+    main_py --> scraper
+    main_py --> get_existing
+    main_py --> dedup
+    dedup --> save_csv
+    save_csv --> spreadsheet
 ```
 
 ---
