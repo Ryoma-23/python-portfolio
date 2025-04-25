@@ -86,7 +86,9 @@ graph TD
 ## 📂 出力例
 
 - `data/itmedia_news_YYYYMMDD.csv`
+![csvファイル](./images/CSVFile.png)
 - Googleスプレッドシートに1行ずつ追加
+![スプレッドシート](./images/ITmedia_SpreadSheet.png)
 
 ---
 
