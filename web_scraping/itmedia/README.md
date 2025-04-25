@@ -68,16 +68,17 @@ python3 main.py
 ## 🔄 main.py 実行フロー図
 
 ```mermaid
-flowchart TD
-    A[main.py 実行開始] --> B[scrape_itmedia_news() 呼び出し]
-    B --> C[記事一覧を取得（title, url, date）]
-    C --> D[過去のCSVを読み込み]
-    D --> E[重複記事を除外]
-    E --> F{新着記事がある？}
-    F -- No --> G[終了：新しい記事はありませんでした]
-    F -- Yes --> H[CSVに保存（data/ 配下）]
-    H --> I[スプレッドシートに書き込み]
-    I --> J[完了]
+graph TD
+    A[main.py 実行] --> B[articles = scrape_itmedia_news()]
+    B -->|scrape_itmedia_news() 呼び出し| C[scraper.py 実行]
+    C --> D[記事一覧を取得しリストに格納]
+    B --> E[get_existing_titles_and_urls()]
+    E --> F[既存CSVからタイトル・URLのセットを作成]
+    B --> G[remove_duplicates()]
+    G --> H[重複しない記事のみを抽出]
+    H --> I[pandas.DataFrame に変換してCSV保存]
+    I --> J[write_to_spreadsheet()]
+    J --> K[Google Spreadsheet に書き込み]
 ```
 
 ---
